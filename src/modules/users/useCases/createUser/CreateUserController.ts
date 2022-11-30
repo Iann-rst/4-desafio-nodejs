@@ -9,14 +9,14 @@ class CreateUserController {
 
   handle(request: Request, response: Response): Response {
     // Complete aqui
-    const { name, email } = request.body;
 
     try {
+      const { name, email } = request.body;
       const user = this.createUserUseCase.execute({ name, email });
 
       return response.status(201).json(user);
     } catch (error) {
-      return response.status(400).json({ error: "Usuário ja cadastrado!" });
+      return response.status(400).json({ error: error.message });
     }
   }
 }
