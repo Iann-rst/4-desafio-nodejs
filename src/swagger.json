@@ -153,6 +153,127 @@
           }
         }
       }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Buscar um usuário especifico pelo ID.",
+        "description": "Buscar e retorna um usuário que possua o `id` enviado.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "ID do usuário que quer buscar.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "user": {
+                    "value": {
+                      "id": "a375884a-6600-4570-bc26-3a3f27c0053f",
+                      "admin": false,
+                      "name": "Name Example",
+                      "email": "example@email.com",
+                      "created_at": "2022-12-01T14:16:12.806Z",
+                      "updated_at": "2022-12-01T14:16:12.806Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User not found."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/admin": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Mudar um usuário para admin.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "ID do usuário que vai virar admin.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "user": {
+                    "value": {
+                      "id": "a375884a-6600-4570-bc26-3a3f27c0053f",
+                      "admin": true,
+                      "name": "Name Example",
+                      "email": "example@email.com",
+                      "created_at": "2022-12-01T14:16:12.806Z",
+                      "updated_at": "2022-12-01T14:16:12.806Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User not found."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -161,7 +282,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "admin": {
             "type": "boolean"
@@ -173,10 +295,12 @@
             "type": "string"
           },
           "created_at": {
-            "type": "string"
+            "type": "string",
+            "format": "date"
           },
           "updated_at": {
-            "type": "string"
+            "type": "string",
+            "format": "date"
           }
         }
       }
