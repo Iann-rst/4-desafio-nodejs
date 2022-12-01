@@ -50,31 +50,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "uuid",
-                      "example": "a375884a-6600-4570-bc26-3a3f27c0053f"
-                    },
-                    "admin": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "name": {
-                      "type": "string",
-                      "example": "Name Example"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "example@email.com"
-                    },
-                    "created_at": {
-                      "type": "Date",
-                      "example": "2022-12-01T14:16:12.806Z"
-                    },
-                    "updated_at": {
-                      "type": "Date",
-                      "example": "2022-12-01T14:16:12.806Z"
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "user": {
+                    "value": {
+                      "id": "a375884a-6600-4570-bc26-3a3f27c0053f",
+                      "admin": false,
+                      "name": "Name Example",
+                      "email": "example@email.com",
+                      "created_at": "2022-12-01T14:16:12.806Z",
+                      "updated_at": "2022-12-01T14:16:12.806Z"
                     }
                   }
                 }
@@ -118,23 +104,79 @@
         ],
         "responses": {
           "200": {
-            "description": "Operação realizada com sucesso."
-          },
-          "400": {
-            "description": "Usuário sem permissão ou Usuário não encontrado.",
+            "description": "Operação realizada com sucesso.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string",
-                      "example": "User is not an administrator"
-                    }
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "user": {
+                    "value": [
+                      {
+                        "id": "a375884a-6600-4570-bc26-3a3f27c0053f",
+                        "admin": false,
+                        "name": "Name Example",
+                        "email": "example@email.com",
+                        "created_at": "2022-12-01T14:16:12.806Z",
+                        "updated_at": "2022-12-01T14:16:12.806Z"
+                      },
+                      {
+                        "id": "46294910-6a1b-40e0-8a92-f1c27bdd305d",
+                        "admin": true,
+                        "name": "Name Example 2",
+                        "email": "example2@email.com",
+                        "created_at": "2022-12-01T10:23:15.516Z",
+                        "updated_at": "2022-12-01T16:23:15.516Z"
+                      }
+                    ]
                   }
                 }
               }
             }
+          }
+        },
+        "400": {
+          "description": "Usuário sem permissão ou Usuário não encontrado.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string",
+                    "example": "User is not an administrator"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "admin": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
           }
         }
       }
