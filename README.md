@@ -55,7 +55,7 @@
   - Respostas de erro;
   - Exemplos;
 
-## Screenshots
+## :camera: Screenshots
 
   <div align="center">
     <h3>Documentação das Rotas</h3>
