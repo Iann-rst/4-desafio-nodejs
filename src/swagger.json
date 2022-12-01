@@ -1,0 +1,143 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Documentação da API",
+    "description": "Está é uma aplicação para listagem e criação de usuários",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Suporte API",
+      "email": "iannrst11@gmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Gerenciamento de usuário"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Criar um novo usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Name Example",
+                  "email": "example@email.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "uuid",
+                      "example": "a375884a-6600-4570-bc26-3a3f27c0053f"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Name Example"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "example@email.com"
+                    },
+                    "created_at": {
+                      "type": "Date",
+                      "example": "2022-12-01T14:16:12.806Z"
+                    },
+                    "updated_at": {
+                      "type": "Date",
+                      "example": "2022-12-01T14:16:12.806Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User already exists!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User already exists!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Retorna todos os usuários.",
+        "description": "Somente usuário `admin` pode acessar.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação realizada com sucesso."
+          },
+          "400": {
+            "description": "Usuário sem permissão ou Usuário não encontrado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User is not an administrator"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
